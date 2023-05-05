@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.auth.CustomAuthFilter;
+import com.example.config.PrefabModule;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -26,7 +27,7 @@ public class PrefabExampleApplication extends Application<PrefabExampleConfigura
 
     @Override
     public void initialize(final Bootstrap<PrefabExampleConfiguration> bootstrap) {
-        bootstrap.addBundle(new GuiceBundle.Builder().enableAutoConfig().build());
+        bootstrap.addBundle(new GuiceBundle.Builder().enableAutoConfig().modules(new PrefabModule()).build());
         bootstrap.addBundle(new AssetsBundle());
 
         bootstrap.addBundle(new ViewBundle<>() {

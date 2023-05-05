@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.1.6</dropwizard.version>
+        <prefab.version>0.3.8pre6</prefab.version>
         <mainClass>com.example.PrefabExampleApplication</mainClass>
     </properties>
 
@@ -36,6 +37,16 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>cloud.prefab</groupId>
+            <artifactId>client</artifactId>
+            <version>${prefab.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cloud.prefab</groupId>
+            <artifactId>logback-listener</artifactId>
+            <version>${prefab.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-assets</artifactId>
