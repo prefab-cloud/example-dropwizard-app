@@ -1,4 +1,8 @@
 logging:
   level: INFO
   loggers:
-    com.example: DEBUG
+    com.example: INFO
+
+viewRendererConfiguration:
+  mustache:
+    cache: false

@@ -1,8 +1,17 @@
 package com.example;
 
+import com.example.auth.CustomAuthFilter;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
+import org.eclipse.jetty.server.session.SessionHandler;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import ru.vyarus.dropwizard.guice.GuiceBundle;
+
+import java.util.Map;
 
 public class PrefabExampleApplication extends Application<PrefabExampleConfiguration> {
 
@@ -17,13 +26,22 @@ public class PrefabExampleApplication extends Application<PrefabExampleConfigura
 
     @Override
     public void initialize(final Bootstrap<PrefabExampleConfiguration> bootstrap) {
-        // TODO: application initialization
+        bootstrap.addBundle(new GuiceBundle.Builder().enableAutoConfig().build());
+        bootstrap.addBundle(new AssetsBundle());
+
+        bootstrap.addBundle(new ViewBundle<>() {
+            @Override
+            public Map<String, Map<String, String>> getViewConfiguration(PrefabExampleConfiguration configuration) {
+                return configuration.getViewRendererConfiguration();
+            }
+        });
+
     }
 
     @Override
     public void run(final PrefabExampleConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        environment.servlets().setSessionHandler(new SessionHandler());
     }
 
 }
