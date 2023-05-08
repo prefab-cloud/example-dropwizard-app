@@ -12,6 +12,8 @@ public class HomeView extends View {
 
     List<User> allUsers;
 
+    boolean showGdprBanner;
+
     public HomeView(){
         super("home.mustache");
     }
@@ -32,6 +34,15 @@ public class HomeView extends View {
 
     public HomeView setAllUsers(List<User> allUsers) {
         this.allUsers = allUsers;
+        return this;
+    }
+
+    public boolean isShowGdprBanner() {
+        return showGdprBanner;
+    }
+
+    public HomeView setShowGdprBanner(boolean showGdprBanner) {
+        this.showGdprBanner = showGdprBanner;
         return this;
     }
 }

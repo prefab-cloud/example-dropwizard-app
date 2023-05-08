@@ -1,8 +1,10 @@
 package com.example.resources;
 
+import cloud.prefab.client.FeatureFlagClient;
 import com.example.auth.CustomAuthFilter;
 import com.example.auth.UserDatabase;
 import com.example.views.HomeView;
+import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +19,12 @@ import javax.ws.rs.core.MediaType;
 @Path("/")
 public class HomeResource {
     private static final Logger LOG = LoggerFactory.getLogger(HomeResource.class);
+    private final FeatureFlagClient featureFlagClient;
+
+    @Inject
+    HomeResource(FeatureFlagClient featureFlagClient) {
+        this.featureFlagClient = featureFlagClient;
+    }
 
     @GET
     public HomeView home(@Context HttpServletRequest request){
@@ -28,7 +36,8 @@ public class HomeResource {
 
         return new HomeView()
                 .setCurrentUser(CustomAuthFilter.getUserFromSession(request.getSession()).orElse(UserDatabase.JEFF))
-                .setAllUsers(UserDatabase.ALL_USERS);
+                .setAllUsers(UserDatabase.ALL_USERS)
+                .setShowGdprBanner(featureFlagClient.featureIsOn("gdpr.banner"));
     }
 
 }
